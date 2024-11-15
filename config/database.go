@@ -24,7 +24,7 @@ func IntializeSQLite() (*gorm.DB, error) {
       return nil, err
     }
 
-    file, err := os.Create("dbPath")
+    file, err := os.Create(dbPath)
     if err != nil {
       return nil, err
     }
@@ -39,7 +39,7 @@ func IntializeSQLite() (*gorm.DB, error) {
     return nil, err
   }
 
-  err = db.AutoMigrate(&schemas.Excursion{})
+  err = db.AutoMigrate(&schemas.Excursion{}, &schemas.User{})
   if err != nil {
     // Migration Error Log
     logger.Errorf("SQLite Migration Erro: %v", err)
