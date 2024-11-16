@@ -3,14 +3,15 @@ package handler
 import (
 	"net/http"
 
+	"excursion.com/config"
 	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 )
 
-func CreateExcursionHandler(ctx *gin.Context) {
- ctx.JSON(http.StatusOK, gin.H {
-    "msg": "Excursion created",    
-  }) 
-}
+var (
+  logger *config.Logger
+  db *gorm.DB
+)
 
 func ShowExcursionHandler(ctx *gin.Context) {
   ctx.JSON(http.StatusOK, gin.H {
@@ -40,4 +41,9 @@ func ShowExcursionsHandler(ctx *gin.Context) {
     "msg": "Showing all excursions",
     "id": id,
   })
+}
+
+func InitalizeHandler() {
+  logger = config.GetLogger("handler")
+  db = config.GetSQLite()
 }

@@ -7,6 +7,8 @@ import (
 )
 
 func initializeroutes(router *gin.Engine) {
+  // Initialize Handler
+  handler.InitalizeHandler()
   v1 := router.Group("/api/v1")
   {
     v1.GET("/excursion/:id", handler.ShowExcursionHandler)
