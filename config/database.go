@@ -17,7 +17,7 @@ func IntializeSQLite() (*gorm.DB, error) {
   // If database file doesn't exist, create a new one
   if os.IsNotExist(err){
 
-    logger.Info("Database Not Found")
+    logger.Info("database Not Found")
     err = os.MkdirAll("./db", os.ModePerm)
 
     if err != nil {
@@ -35,14 +35,14 @@ func IntializeSQLite() (*gorm.DB, error) {
   db, err := gorm.Open(sqlite.Open("./db/excursions.db"),  &gorm.Config{})
   // Connection Error Log
   if err != nil {
-  logger.Errorf("SQLite Initialization Error: %v", err)
+  logger.Errorf("sqlite initialization error: %v", err)
     return nil, err
   }
 
   err = db.AutoMigrate(&schemas.Excursion{}, &schemas.User{})
   if err != nil {
     // Migration Error Log
-    logger.Errorf("SQLite Migration Erro: %v", err)
+    logger.Errorf("sqlite migration error: %v", err)
     return nil, err
   }
 

@@ -16,6 +16,9 @@ type CreateExcursionRequest struct {
 }
 
 func (c *CreateExcursionRequest) Validate() error {
+	if c == nil {
+		return fmt.Errorf("malformed request body")
+	}
 	if c.Image == "" {
 		return errParamIsRequired("img", "string")
 	}

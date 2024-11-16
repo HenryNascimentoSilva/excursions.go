@@ -19,7 +19,7 @@ func Init() error {
   // Intialize Database
   db, err = IntializeSQLite()
   if err != nil {
-    return fmt.Errorf("Error Initializing SQLite", err)
+    return fmt.Errorf("error initializing sqlite", err)
   }
 
   return nil

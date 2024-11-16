@@ -15,14 +15,14 @@ var (
 
 func ShowExcursionHandler(ctx *gin.Context) {
   ctx.JSON(http.StatusOK, gin.H {
-    "msg": "Showing Excursion",
+    "msg": "showing excursion",
   })
 }
 
 func DeleteExcursionHandler(ctx *gin.Context) {
   id := ctx.Param("id")
   ctx.JSON(http.StatusOK, gin.H {
-    "msg": "Delete excursion",
+    "msg": "delete excursion",
     "id": id,
   })
 }
@@ -30,7 +30,7 @@ func DeleteExcursionHandler(ctx *gin.Context) {
 func UpdateExcursionHandler(ctx *gin.Context) {
   id := ctx.Param("id")
   ctx.JSON(http.StatusOK, gin.H {
-    "msg": "Updating Excursion",
+    "msg": "updating excursion",
     "id": id,
   })
 }
@@ -38,7 +38,7 @@ func UpdateExcursionHandler(ctx *gin.Context) {
 func ShowExcursionsHandler(ctx *gin.Context) {
   id := ctx.Param("id")
   ctx.JSON(http.StatusOK, gin.H {
-    "msg": "Showing all excursions",
+    "msg": "showing all excursions",
     "id": id,
   })
 }
