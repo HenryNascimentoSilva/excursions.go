@@ -16,9 +16,6 @@ type CreateExcursionRequest struct {
 }
 
 func (c *CreateExcursionRequest) Validate() error {
-	if c == nil {
-		return fmt.Errorf("malformed request body")
-	}
 	if c.Image == "" {
 		return errParamIsRequired("img", "string")
 	}
@@ -35,4 +32,20 @@ func (c *CreateExcursionRequest) Validate() error {
 		return errParamIsRequired("findMore", "string")
 	}
 	return nil
+}
+
+type UpdateExcursionRequest struct {
+	Image string `json:"img"`
+  Title string `json:"title"`
+  Description string `json:"desc"`
+  Buy string `json:"buy"`
+  FindMore string `json:"findMore"`	
+}
+
+func(u *UpdateExcursionRequest) Validate() error {
+	if u.Image != "" || u.Title != "" || u.Description != "" || u.Buy != "" || u.FindMore != "" {
+		return nil
+	}
+
+	return fmt.Errorf("at least one field must be provided")
 }
