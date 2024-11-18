@@ -11,10 +11,10 @@ func initializeroutes(router *gin.Engine) {
   handler.InitalizeHandler()
   v1 := router.Group("/api/v1")
   {
-    v1.GET("/excursion/:id", handler.ShowExcursionHandler)
+    v1.GET("/excursion", handler.ShowExcursionHandler)
     v1.GET("/excursions", handler.ShowExcursionsHandler)
     v1.POST("/excursion", handler.CreateExcursionHandler)
-    v1.DELETE("/excursion/:id", handler.DeleteExcursionHandler)
-    v1.PUT("/excursion/:id", handler.UpdateExcursionHandler)
+    v1.DELETE("/excursion", handler.DeleteExcursionHandler)
+    v1.PUT("/excursion", handler.UpdateExcursionHandler)
   }
 }
