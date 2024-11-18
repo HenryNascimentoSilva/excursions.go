@@ -1,22 +1,46 @@
 package handler
 
 import (
-
+	"net/http"
 	"github.com/gin-gonic/gin"
+	"excursion.com/schemas"
 )
 
-func CreateExcursionHandler(ctx *gin.Context ) {
-	request := CreateExcursionRequest{}
+// Validate Function for Request
+func CreateExcursionHandler(ctx *gin.Context) {
+	var req CreateExcursionRequest
 
-  ctx.BindJSON(&request)
+	// Attempt to bind the JSON payload to the struct
+	if err := ctx.ShouldBindJSON(&req); err != nil {
+		ctx.JSON(http.StatusBadRequest, gin.H{"error": "malformed JSON: " + err.Error()})
+		return
+	}
 
-  if err := request.Validate(); err!=nil {
-    logger.Errorf("validation error: %v", err.Error())
+	// Validate the decoded struct
+	if err := req.Validate(); err != nil {
+		sendError(ctx, http.StatusBadRequest, err.Error())
+		return
+	}
+  
+	excursion := schemas.Excursion {
+		Image: req.Image,
+		Title: req.Title,
+		Description: req.Description,
+		Buy: req.Buy,
+		FindMore: req.FindMore,
+	}
+
+  // Insert data in the database
+  if err := db.Create(&excursion).Error; err != nil {
+    logger.Errorf("error creating excursion: %v", err.Error())
+		sendError(ctx, http.StatusInternalServerError, "error creating excursion on database")
     return
   }
 
-  if err := db.Create(&request).Error; err!=nil {
-    logger.Errorf("Error Creating Excursion: %v", err.Error())
-    return
-  }
+  logger.Infof("request received: ", req)
+  // If everything is valid, proceed
+	ctx.JSON(http.StatusOK, gin.H{
+		"data": &req,
+		"msg": "Excursion created successfully",
+	})
 }
